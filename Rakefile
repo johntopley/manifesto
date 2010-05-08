@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "manifesto"
-    gem.summary = %Q{TODO: one-line summary of your gem}
+    gem.summary = %Q{HTML5 cache manifest generation}
     gem.description = %Q{TODO: longer description of your gem}
     gem.email = "john@johntopley.com"
     gem.homepage = "http://github.com/johntopley/manifesto"
