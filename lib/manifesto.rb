@@ -16,16 +16,7 @@ module Manifesto
       # files in the manifest.
       if File.file?(path) && File.basename(path)[0,1] != '.'
         manifest << "#{normalize_path(directory, path)}\n"
-        
-        # Read the file contents to calculate the MD5 hash, so that if a file is
-        # changed, the manifest is changed too.
-        if compute_hash
-          digest = Digest::MD5.new
-          File.open(path, 'r') do |file|
-            digest.update(file.read(8192)) until file.eof
-            hashes += digest.hexdigest
-          end
-        end
+        hashes += compute_file_contents_hash(file) if compute_hash
       end
     end
     
@@ -37,6 +28,16 @@ module Manifesto
   end
   
   private
+  
+  # Read the file contents to calculate the MD5 hash, so that if a file is
+  # changed, the manifest is changed too.
+  def self.compute_file_contents_hash(file)
+    digest = Digest::MD5.new
+    File.open(path, 'r') do |file|
+      digest.update(file.read(8192)) until file.eof
+      hashes += digest.hexdigest
+    end
+  end
   
   # Strip the directory from the start of path, so that each path is relative
   # to directory. Add a leading forward slash if not present.
