@@ -1,10 +1,12 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe Manifesto do
-  it "should validate that its directory argument is a real directory" do
+  it "should raise ArgumentError if directory is not a real directory" do
+    expect{ Manifesto.validate_arguments('', false) }.to raise_error(ArgumentError)    
   end
   
-  it "should validate that its compute_hash argument is a boolean" do
+  it "should raise ArgumentError if compute_hash is not a boolean" do
+    expect{ Manifesto.validate_arguments('.', nil) }.to raise_error(ArgumentError)
   end
   
   it "should return a list of files within the default directory" do
