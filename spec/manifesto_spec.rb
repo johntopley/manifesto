@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe Manifesto do
   it "should raise ArgumentError if directory is not a real directory" do
-    expect{ Manifesto.validate_arguments('', false) }.to raise_error(ArgumentError)    
+    expect{ Manifesto.validate_arguments('', false) }.to raise_error(ArgumentError)
   end
   
   it "should raise ArgumentError if compute_hash is not a boolean" do
