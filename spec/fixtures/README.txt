@@ -1,0 +1,1 @@
+The files in this directory are used by some of the RSpec examples in spec/manifesto_spec.rb
