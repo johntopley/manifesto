@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{HTML5 cache manifest generation}
+  s.summary = %q{Manifesto is a Ruby library that dynamically generates an HTML5 cache manifest}
   s.test_files = [
     "spec/manifesto_spec.rb",
      "spec/spec_helper.rb"
