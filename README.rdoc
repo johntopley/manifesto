@@ -17,7 +17,7 @@ You might need administrator privileges on your system to install it.
 
 == Usage
 
-  # Basic usage, lists all non-hidden files in ./public and includes a computed hash of their contents
+  # Basic usage, list all non-hidden files in ./public and include a computed hash of their contents
   Manifesto.cache
   
   # Specify a directory

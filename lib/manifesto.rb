@@ -1,9 +1,21 @@
 require 'digest/md5'
 require 'find'
 
-# Manifesto.cache(:directory => '/public', :compute_hash => false)
-
 module Manifesto
+  
+  # Returns an Array of non-hidden files within the <tt>./public</tt> directory, unless <tt>:directory</tt> is specified.
+  # The output also includes a computed hash of the files' contents, unless <tt>:compute_hash</tt> is set to <tt>false</tt>.
+  #
+  # === Examples
+  #
+  # Basic usage, list all non-hidden files in <tt>./public</tt> and include a computed hash of their contents:
+  #   Manifesto.cache
+  #
+  # Specify a directory:
+  #   Manifesto.cache :directory => './mobile'
+  #
+  # Specify a directory and don't compute the hash:
+  #   Manifesto.cache :directory => './mobile', :compute_hash => false
   def self.cache(options = {})
     directory = options.fetch(:directory, './public')
     compute_hash  = options.fetch(:compute_hash, true)
@@ -29,7 +41,7 @@ module Manifesto
   
   private
   
-  # Read the file contents to calculate the MD5 hash, so that if a file is
+  # Reads the file contents to calculate the MD5 hash, so that if a file is
   # changed, the manifest is changed too.
   def self.compute_file_contents_hash(path)
     hash = ''
@@ -41,7 +53,7 @@ module Manifesto
     hash
   end
   
-  # Strip the directory from the start of path, so that each path is relative
+  # Strips the directory from the start of path, so that each path is relative
   # to directory. Add a leading forward slash if not present.
   def self.normalize_path(directory, path)
     normalized_path = path[directory.length,path.length]
