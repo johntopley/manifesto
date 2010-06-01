@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Topley"]
-  s.date = %q{2010-05-31}
-  s.description = %q{HTML5 cache manifest generation}
+  s.date = %q{2010-06-01}
+  s.description = %q{Dynamically generates an HTML5 cache manifest from the contents of a directory}
   s.email = %q{john@johntopley.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -24,6 +24,13 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/manifesto.rb",
+     "manifesto.gemspec",
+     "public/README.txt",
+     "public/file1.txt",
+     "public/file2.txt",
+     "spec/fixtures/README.txt",
+     "spec/fixtures/file1.txt",
+     "spec/fixtures/file2.txt",
      "spec/manifesto_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"

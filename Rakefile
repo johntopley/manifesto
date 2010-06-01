@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "manifesto"
-    gem.summary = %Q{HTML5 cache manifest generation}
+    gem.summary = %Q{Manifesto is a Ruby library that dynamically generates an HTML5 cache manifest}
     gem.description = %Q{Dynamically generates an HTML5 cache manifest from the contents of a directory}
     gem.email = "john@johntopley.com"
     gem.homepage = "http://manifesto.rubyforge.org"
