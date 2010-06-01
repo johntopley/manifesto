@@ -31,6 +31,8 @@ describe Manifesto do
   
   it "should compute a hash of the files within the specified directory"
   
+  it "should compute a different hash if the content of a file changes"
+  
   it "shouldn't include hidden files or directories within the default directory"
   
   it "shouldn't include hidden files or directories within the specified directory"
