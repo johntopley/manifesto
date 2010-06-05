@@ -8,12 +8,17 @@ begin
     gem.summary = %Q{Manifesto is a Ruby library that dynamically generates an HTML5 cache manifest}
     gem.description = %Q{Dynamically generates an HTML5 cache manifest from the contents of a directory}
     gem.email = "john@johntopley.com"
-    gem.homepage = "http://manifesto.rubyforge.org"
+    gem.homepage = "http://github.com/johntopley/manifesto"
     gem.authors = ["John Topley"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
+    gem.rubyforge_project = "manifesto"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
+  
+  Jeweler::RubyforgeTasks.new do |rubyforge|
+    rubyforge.doc_task = "rdoc"
+  end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end

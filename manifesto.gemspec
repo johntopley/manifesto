@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://manifesto.rubyforge.org}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{manifesto}
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Manifesto is a Ruby library that dynamically generates an HTML5 cache manifest}
   s.test_files = [
