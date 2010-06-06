@@ -39,8 +39,6 @@ module Manifesto
     manifest.reverse
   end
   
-  private
-  
   # Reads the file contents to calculate the MD5 hash, so that if a file is
   # changed, the manifest is changed too.
   def self.compute_file_contents_hash(path)
