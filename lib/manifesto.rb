@@ -22,7 +22,8 @@ module Manifesto
     validate_arguments(directory, compute_hash)
     manifest = []
     hashes = ''
-    Find.find(directory) do |path|
+    
+    get_file_paths(directory).each do |path|
     
       # Only include real files (i.e. not directories, symlinks etc.) and non-hidden
       # files in the manifest.
@@ -49,6 +50,13 @@ module Manifesto
       hash += digest.hexdigest
     end
     hash
+  end
+  
+  # Recursively find all file entries from within a direcotry
+  def self.get_file_paths(directory)
+    entries = []
+    Find.find(directory){|entry| entries << entry}
+    entries
   end
   
   # Strips the directory from the start of path, so that each path is relative
