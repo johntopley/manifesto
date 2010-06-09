@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{manifesto}
-  s.version = "0.1.0"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Topley"]
-  s.date = %q{2010-06-05}
+  s.date = %q{2010-06-09}
   s.description = %q{Dynamically generates an HTML5 cache manifest from the contents of a directory}
   s.email = %q{john@johntopley.com}
   s.extra_rdoc_files = [
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
      "spec/spec.opts",
      "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://manifesto.rubyforge.org}
+  s.homepage = %q{http://github.com/johntopley/manifesto}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{manifesto}
