@@ -52,10 +52,10 @@ module Manifesto
     hash
   end
   
-  # Recursively find all file entries from within a direcotry
+  # Recursively find all file entries from within a directory.
   def self.get_file_paths(directory)
     entries = []
-    Find.find(directory){|entry| entries << entry}
+    Find.find(directory) { |entry| entries << entry }
     entries
   end
   
