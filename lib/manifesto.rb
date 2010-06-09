@@ -1,7 +1,7 @@
 require 'digest/md5'
 require 'find'
 
-module Manifesto
+class Manifesto
   
   # Returns an Array of non-hidden files within the <tt>./public</tt> directory, unless <tt>:directory</tt> is specified.
   # The output also includes a computed hash of the files' contents, unless <tt>:compute_hash</tt> is set to <tt>false</tt>.
