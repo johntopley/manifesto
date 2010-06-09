@@ -1,23 +1,23 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe Manifesto do
-  describe ".validate_arguments" do
+  describe ".validate_options" do
     it "should raise ArgumentError if directory is not a real directory" do
-      expect{ Manifesto.validate_arguments('', false) }.to raise_error(ArgumentError)
+      expect{ Manifesto.validate_options('', false) }.to raise_error(ArgumentError)
     end
 
     it "should raise ArgumentError if compute_hash is not a boolean" do
-      expect{ Manifesto.validate_arguments('.', nil) }.to raise_error(ArgumentError)
+      expect{ Manifesto.validate_options('.', nil) }.to raise_error(ArgumentError)
     end
   end
 
   describe ".cache" do
     before(:each) do
-      Manifesto.stub!(:validate_arguments).and_return(true)
+      Manifesto.stub!(:validate_options).and_return(true)
     end
 
-    it "should validate the arguments" do
-      Manifesto.should_receive(:validate_arguments).and_return(true)
+    it "should validate the options" do
+      Manifesto.should_receive(:validate_options).and_return(true)
       Manifesto.cache
     end
 

@@ -19,7 +19,7 @@ module Manifesto
   def self.cache(options = {})
     directory = options.fetch(:directory, './public')
     compute_hash  = options.fetch(:compute_hash, true)
-    validate_arguments(directory, compute_hash)
+    validate_options(directory, compute_hash)
     manifest = []
     hashes = ''
     
@@ -67,7 +67,7 @@ module Manifesto
     normalized_path
   end
   
-  def self.validate_arguments(directory, compute_hash)
+  def self.validate_options(directory, compute_hash)
     raise(ArgumentError, ":directory must be a real directory") unless valid_directory?(directory)
     raise(ArgumentError, ":compute_hash must be a boolean") unless valid_compute_hash?(compute_hash)
   end
