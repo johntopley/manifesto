@@ -9,7 +9,7 @@ begin
     gem.description = %Q{Dynamically generates an HTML5 cache manifest from the contents of a directory}
     gem.email = "john@johntopley.com"
     gem.homepage = "http://github.com/johntopley/manifesto"
-    gem.authors = ["John Topley"]
+    gem.authors = ["John Topley","Nasir Jamal"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.rubyforge_project = "manifesto"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
