@@ -52,7 +52,7 @@ class Manifesto
     hash
   end
   
-  # Recursively find all file entries from within a directory.
+  # Recursively finds all file entries from within a directory.
   def self.get_file_paths(directory)
     entries = []
     Find.find(directory) { |entry| entries << entry }
@@ -67,15 +67,18 @@ class Manifesto
     normalized_path
   end
   
+  # Checks that the options passed to the <tt>cache</tt> method are valid.
   def self.validate_options(directory, compute_hash)
     raise(ArgumentError, ":directory must be a real directory") unless valid_directory?(directory)
     raise(ArgumentError, ":compute_hash must be a boolean") unless valid_compute_hash?(compute_hash)
   end
   
+  # Checks that the <tt>compute_hash</tt> option is a boolean.
   def self.valid_compute_hash?(compute_hash)
     compute_hash.is_a?(TrueClass) || compute_hash.is_a?(FalseClass)
   end
   
+  # Checks that the <tt>directory</tt> option corresponds to a real directory.
   def self.valid_directory?(directory)
     File.directory?(directory)
   end
