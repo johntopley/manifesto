@@ -7,6 +7,12 @@ By default it also includes a computed hash of the files' contents, so that if a
 
 * Ruby >= 1.8.6 (not tested with previous versions)
 
+Manifesto has been successfully tested against the following Ruby releases:
+
+* Ruby 1.8.6
+* Ruby 1.8.7
+* Ruby 1.9.1
+
 == Installation
 
 This library is intended to be installed as a Gem.
@@ -48,7 +54,20 @@ You might need administrator privileges on your system to install it.
 
 == Ruby on Rails Example
 
-TODO
+* Create a route for the cache manifest:
+
+   map.manifest '/manifest', :controller => 'manifest', :action => 'show' # Rails 2.x
+
+   -- or --
+
+   match '/manifest' => 'manifest#show' # Rails 3.x
+
+* Create a controller action:
+
+   def show
+     headers['Content-Type'] = 'text/cache-manifest'
+     render :text => Manifesto.cache, :layout => false
+   end
 
 == Issues
 
@@ -63,6 +82,10 @@ Please use the {GitHub issues tracker}[http://github.com/johntopley/manifesto/is
 * Commit, do not mess with rakefile, version, or history
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches
+
+== Thanks
+
+* Thanks to {Nasir Jamal}[http://github.com/nas] for helping me with RSpec.
 
 == Copyright
 
