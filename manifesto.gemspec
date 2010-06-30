@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{manifesto}
-  s.version = "0.5.0"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["John Topley"]
-  s.date = %q{2010-06-09}
+  s.authors = ["John Topley", "Nasir Jamal"]
+  s.date = %q{2010-06-30}
   s.description = %q{Dynamically generates an HTML5 cache manifest from the contents of a directory}
   s.email = %q{john@johntopley.com}
   s.extra_rdoc_files = [
