@@ -19,6 +19,7 @@ class Manifesto
   def self.cache(options = {})
     directory = options.fetch(:directory, './public')
     compute_hash  = options.fetch(:compute_hash, true)
+    timestamp = options.fetch(:timestamp, true)
     validate_options(directory, compute_hash)
     manifest = []
     hashes = ''
@@ -28,7 +29,11 @@ class Manifesto
       # Only include real files (i.e. not directories, symlinks etc.) and non-hidden
       # files in the manifest.
       if File.file?(path) && File.basename(path)[0,1] != '.'
-        manifest << "#{normalize_path(directory, path)}\n"
+        if timestamp
+          manifest << "#{normalize_path(directory, path)}?#{File.mtime(path).to_i.to_s}\n"
+        else
+          manifest << "#{normalize_path(directory, path)}\n"
+        end
         hashes += compute_file_contents_hash(path) if compute_hash
       end
     end
