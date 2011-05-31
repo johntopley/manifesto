@@ -20,7 +20,7 @@ class Manifesto
     directory = options.fetch(:directory, './public')
     compute_hash  = options.fetch(:compute_hash, true)
     timestamp = options.fetch(:timestamp, true)
-    validate_options(directory, compute_hash)
+    validate_options(directory, compute_hash, timestamp)
     manifest = []
     hashes = ''
     
@@ -73,9 +73,10 @@ class Manifesto
   end
   
   # Checks that the options passed to the <tt>cache</tt> method are valid.
-  def self.validate_options(directory, compute_hash)
+  def self.validate_options(directory, compute_hash, timestamp)
     raise(ArgumentError, ":directory must be a real directory") unless valid_directory?(directory)
     raise(ArgumentError, ":compute_hash must be a boolean") unless valid_compute_hash?(compute_hash)
+    raise(ArgumentError, ":timestamp must be a boolean") unless valid_timestamp?(timestamp)
   end
   
   # Checks that the <tt>compute_hash</tt> option is a boolean.
@@ -86,5 +87,10 @@ class Manifesto
   # Checks that the <tt>directory</tt> option corresponds to a real directory.
   def self.valid_directory?(directory)
     File.directory?(directory)
+  end
+
+  # Checks that the <tt>timestamp</tt> option is a boolean.
+  def self.valid_timestamp?(timestamp)
+    timestamp.is_a?(TrueClass) || timestamp.is_a?(FalseClass)
   end
 end
