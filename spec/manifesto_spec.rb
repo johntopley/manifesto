@@ -3,11 +3,15 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe Manifesto do
   describe ".validate_options" do
     it "should raise ArgumentError if directory is not a real directory" do
-      expect{ Manifesto.validate_options('', false) }.to raise_error(ArgumentError)
+      expect{ Manifesto.validate_options('', false, false) }.to raise_error(ArgumentError)
     end
 
     it "should raise ArgumentError if compute_hash is not a boolean" do
-      expect{ Manifesto.validate_options('.', nil) }.to raise_error(ArgumentError)
+      expect{ Manifesto.validate_options('.', nil, false) }.to raise_error(ArgumentError)
+    end
+
+    it "should raise ArgumentError if timestamp is not a boolean" do
+      expect{ Manifesto.validate_options('.', false, nil) }.to raise_error(ArgumentError)
     end
   end
 
@@ -40,6 +44,11 @@ describe Manifesto do
         Manifesto.stub!(:get_file_paths).and_return([])
       end
 
+      it "should not get the timestamp" do
+        Manifesto.should_receive(:get_timestamp).never
+        Manifesto.cache
+      end
+
       it "should not compute hash" do
         Manifesto.should_receive(:compute_file_contents_hash).never
         Manifesto.cache
@@ -56,6 +65,11 @@ describe Manifesto do
         before(:each) do
           Manifesto.stub!(:get_file_paths).and_return(['public/dir1', 'public/symlink'])
           File.stub!(:file?).and_return(false)
+        end
+
+        it "should not get the timestamp" do
+          Manifesto.should_receive(:get_timestamp).never
+          Manifesto.cache
         end
 
         it "should not compute hash" do
@@ -75,6 +89,11 @@ describe Manifesto do
           File.stub!(:file?).and_return(true)
         end
 
+        it "should not get the timestamp" do
+          Manifesto.should_receive(:get_timestamp).never
+          Manifesto.cache
+        end
+
         it "should not compute hash" do
           Manifesto.should_receive(:compute_file_contents_hash).never
           Manifesto.cache
@@ -91,6 +110,11 @@ describe Manifesto do
           Manifesto.stub!(:get_file_paths).and_return(['/public/file1'])
           File.stub!(:file?).and_return(true)
           Manifesto.stub!(:compute_file_contents_hash).and_return('asdfsafasdfsdfszxsd')
+        end
+
+        it "should get the timestamp" do
+          Manifesto.should_receive(:get_timestamp).and_return('anything')
+          Manifesto.cache
         end
 
         it "should compute the hash" do

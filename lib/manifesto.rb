@@ -30,7 +30,7 @@ class Manifesto
       # files in the manifest.
       if File.file?(path) && File.basename(path)[0,1] != '.'
         if timestamp
-          manifest << "#{normalize_path(directory, path)}?#{File.mtime(path).to_i.to_s}\n"
+          manifest << "#{normalize_path(directory, path)}?#{get_timestamp(path)}\n"
         else
           manifest << "#{normalize_path(directory, path)}\n"
         end
@@ -70,6 +70,11 @@ class Manifesto
     normalized_path = path[directory.length,path.length]
     normalized_path = '/' + normalized_path unless normalized_path[0,1] == '/'
     normalized_path
+  end
+
+  # Calculates the timestamp for a given file using same methodology as Rails' asset timestamps.
+  def self.get_timestamp(path)
+    File.mtime(path).to_i.to_s
   end
   
   # Checks that the options passed to the <tt>cache</tt> method are valid.
