@@ -85,6 +85,7 @@ class Manifesto
         return true
       end
     end
+    false
   end
   
   # Checks that the options passed to the <tt>cache</tt> method are valid.
