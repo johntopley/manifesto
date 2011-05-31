@@ -20,6 +20,7 @@ class Manifesto
     directory = options.fetch(:directory, './public')
     compute_hash  = options.fetch(:compute_hash, true)
     timestamp = options.fetch(:timestamp, true)
+    timestamp_exclusions = options.fetch(:timestamp_exclusions, [])
     validate_options(directory, compute_hash, timestamp)
     manifest = []
     hashes = ''
@@ -29,7 +30,7 @@ class Manifesto
       # Only include real files (i.e. not directories, symlinks etc.) and non-hidden
       # files in the manifest.
       if File.file?(path) && File.basename(path)[0,1] != '.'
-        if timestamp
+        if timestamp and not in_path(path, timestamp_exclusions)
           manifest << "#{normalize_path(directory, path)}?#{get_timestamp(path)}\n"
         else
           manifest << "#{normalize_path(directory, path)}\n"
@@ -75,6 +76,15 @@ class Manifesto
   # Calculates the timestamp for a given file using same methodology as Rails' asset timestamps.
   def self.get_timestamp(path)
     File.mtime(path).to_i.to_s
+  end
+
+  # Determines whether or not the path contains any of the targets; used for exclusions/inclusions.
+  def self.in_path(path, targets)
+    targets.each do |target|
+      if path.include? target
+        return true
+      end
+    end
   end
   
   # Checks that the options passed to the <tt>cache</tt> method are valid.
