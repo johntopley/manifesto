@@ -21,10 +21,15 @@ class Manifesto
     compute_hash  = options.fetch(:compute_hash, true)
     timestamp = options.fetch(:timestamp, true)
     timestamp_exclusions = options.fetch(:timestamp_exclusions, [])
-    validate_options(directory, compute_hash, timestamp)
+    network_wildcard = options.fetch(:network_wildcard, false)
+    validate_options(directory, compute_hash, timestamp, network_wildcard)
     manifest = []
     hashes = ''
     
+    if network_wildcard then
+      manifest << "\nNETWORK:\n*"
+    end
+
     get_file_paths(directory).each do |path|
     
       # Only include real files (i.e. not directories, symlinks etc.) and non-hidden
@@ -89,10 +94,11 @@ class Manifesto
   end
   
   # Checks that the options passed to the <tt>cache</tt> method are valid.
-  def self.validate_options(directory, compute_hash, timestamp)
+  def self.validate_options(directory, compute_hash, timestamp, network_wildcard)
     raise(ArgumentError, ":directory must be a real directory") unless valid_directory?(directory)
     raise(ArgumentError, ":compute_hash must be a boolean") unless valid_compute_hash?(compute_hash)
     raise(ArgumentError, ":timestamp must be a boolean") unless valid_timestamp?(timestamp)
+    raise(ArgumentError, ":network_wildcard must be a boolean") unless valid_network_wildcard?(network_wildcard)
   end
   
   # Checks that the <tt>compute_hash</tt> option is a boolean.
@@ -108,5 +114,10 @@ class Manifesto
   # Checks that the <tt>timestamp</tt> option is a boolean.
   def self.valid_timestamp?(timestamp)
     timestamp.is_a?(TrueClass) || timestamp.is_a?(FalseClass)
+  end
+
+  # Checks that the <tt>network_wildcard</tt> option is a boolean.
+  def self.valid_network_wildcard?(network_wildcard)
+    network_wildcard.is_a?(TrueClass) || network_wildcard.is_a?(FalseClass)
   end
 end

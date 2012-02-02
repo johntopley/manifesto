@@ -32,6 +32,9 @@ You might need administrator privileges on your system to install it.
   # Specify a directory and don't compute the hash
   Manifesto.cache :directory => './mobile', :compute_hash => false
   
+  # Generate a network wildcard
+  Manifesto.cache :directory => '.mobile', :network_wildcard => true
+
 == Sample Output
 
   CACHE MANIFEST

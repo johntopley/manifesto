@@ -3,15 +3,19 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe Manifesto do
   describe ".validate_options" do
     it "should raise ArgumentError if directory is not a real directory" do
-      expect{ Manifesto.validate_options('', false, false) }.to raise_error(ArgumentError)
+      expect{ Manifesto.validate_options('', false, false, false) }.to raise_error(ArgumentError)
     end
 
     it "should raise ArgumentError if compute_hash is not a boolean" do
-      expect{ Manifesto.validate_options('.', nil, false) }.to raise_error(ArgumentError)
+      expect{ Manifesto.validate_options('.', nil, false, false) }.to raise_error(ArgumentError)
     end
 
     it "should raise ArgumentError if timestamp is not a boolean" do
-      expect{ Manifesto.validate_options('.', false, nil) }.to raise_error(ArgumentError)
+      expect{ Manifesto.validate_options('.', false, nil, false) }.to raise_error(ArgumentError)
+    end
+
+    it "should raise ArgumentError if network_wildcard is not a boolean" do
+      expect{ Manifesto.validate_options('.', false, false, nil) }.to raise_error(ArgumentError)
     end
   end
 
