@@ -21,24 +21,27 @@ class Manifesto
     compute_hash  = options.fetch(:compute_hash, true)
     timestamp = options.fetch(:timestamp, true)
     timestamp_exclusions = options.fetch(:timestamp_exclusions, [])
-    network_wildcard = options.fetch(:network_wildcard, false)
-    validate_options(directory, compute_hash, timestamp, network_wildcard)
+    network_includes = options.fetch(:network_includes, [])
+    excludes = options.fetch(:excludes, [])
+    validate_options(directory, compute_hash, timestamp, network_includes, excludes)
     manifest = []
     hashes = ''
     
-    if network_wildcard then
-      manifest << "\nNETWORK:\n*"
+    if !network_includes.empty? then
+      network_includes.each { |inc| manifest << "#{inc}\n" }
+      manifest << "\nNETWORK:\n"
     end
 
     get_file_paths(directory).each do |path|
-    
       # Only include real files (i.e. not directories, symlinks etc.) and non-hidden
       # files in the manifest.
       if File.file?(path) && File.basename(path)[0,1] != '.'
-        if timestamp and not in_path(path, timestamp_exclusions)
-          manifest << "#{normalize_path(directory, path)}?#{get_timestamp(path)}\n"
-        else
-          manifest << "#{normalize_path(directory, path)}\n"
+        if not in_path(path, excludes) then
+          if timestamp and not in_path(path, timestamp_exclusions)
+            manifest << "#{normalize_path(directory, path)}?#{get_timestamp(path)}\n"
+          else
+            manifest << "#{normalize_path(directory, path)}\n"
+          end
         end
         hashes += compute_file_contents_hash(path) if compute_hash
       end
@@ -95,11 +98,12 @@ class Manifesto
   end
   
   # Checks that the options passed to the <tt>cache</tt> method are valid.
-  def self.validate_options(directory, compute_hash, timestamp, network_wildcard)
+  def self.validate_options(directory, compute_hash, timestamp, network_includes, excludes)
     raise(ArgumentError, ":directory must be a real directory") unless valid_directory?(directory)
     raise(ArgumentError, ":compute_hash must be a boolean") unless valid_compute_hash?(compute_hash)
     raise(ArgumentError, ":timestamp must be a boolean") unless valid_timestamp?(timestamp)
-    raise(ArgumentError, ":network_wildcard must be a boolean") unless valid_network_wildcard?(network_wildcard)
+    raise(ArgumentError, ":network_includes must be an array") unless valid_network_includes?(network_includes)
+    raise(ArgumentError, ":excludes must be an array") unless valid_excludes?(excludes)
   end
   
   # Checks that the <tt>compute_hash</tt> option is a boolean.
@@ -117,8 +121,13 @@ class Manifesto
     timestamp.is_a?(TrueClass) || timestamp.is_a?(FalseClass)
   end
 
-  # Checks that the <tt>network_wildcard</tt> option is a boolean.
-  def self.valid_network_wildcard?(network_wildcard)
-    network_wildcard.is_a?(TrueClass) || network_wildcard.is_a?(FalseClass)
+  # Checks that the <tt>network_includes</tt> option is a boolean.
+  def self.valid_network_includes?(network_includes)
+    network_includes.is_a?(Array)
+  end
+
+  # Checks that the <tt>excludes</tt> option is a boolean.
+  def self.valid_excludes?(excludes)
+    excludes.is_a?(Array)
   end
 end
